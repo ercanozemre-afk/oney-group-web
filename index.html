@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONEY GROUP — Uluslararası İnşaat & Proje Yönetimi</title>
+  <meta name="description" content="ONEY GROUP, 1988'den bu yana 18 ülkede gökdelenlerden havalimanlarına 280'den fazla büyük ölçekli projeyi hassasiyet ve sürdürülebilirlik ilkesiyle teslim etmektedir.">
+  <meta property="og:title" content="ONEY GROUP — Küresel İnşaat">
+  <meta property="og:description" content="Güç. Hassasiyet. Kalıcılık. 36 yıllık uluslararası deneyim.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%23C41230'/%3E%3Ccircle cx='20' cy='17' r='11' fill='none' stroke='white' stroke-width='2.5'/%3E%3Cpolyline points='13,20 20,12 27,20' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpolyline points='13,26 20,18 27,26' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Manrope:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ════════════════════════════════════════
+       VARIABLES
+    ════════════════════════════════════════ */
+    :root {
+      --bg:    #0B0C10;
+      --bg-2:  #11131A;
+      --bg-3:  #181B24;
+      --surf:  #1E2230;
+      --red:       #C41230;
+      --red-d:     #A00E27;
+      --red-dim:   rgba(196,18,48,0.12);
+      --slate:     #3D4B5C;
+      --text:  #EDE9E2;
+      --muted: #8A9097;
+      --dim:   #555C65;
+      --brd-d: rgba(255,255,255,0.07);
+      --brd-l: rgba(196,18,48,0.18);
+
+      --sp-xs:4px; --sp-sm:8px; --sp-md:16px; --sp-lg:24px;
+      --sp-xl:48px; --sp-2xl:80px; --sp-3xl:120px;
+
+      --ease: cubic-bezier(0.16,1,0.3,1);
+      --spring: cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    /* ════════════════════════════════════════
+       RESET & BASE
+    ════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body {
+      background:var(--bg); color:var(--text);
+      font-family:'Manrope',sans-serif;
+      font-weight:400; line-height:1.7;
+      overflow-x:hidden;
+    }
+    body::before {
+      content:''; position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events:none; z-index:9999;
+    }
+    img { display:block; max-width:100%; }
+    a { color:inherit; text-decoration:none; }
+    button { border:none; background:none; cursor:pointer; font-family:inherit; }
+
+    .label {
+      font-size:10.5px; font-weight:700;
+      letter-spacing:0.16em; text-transform:uppercase;
+      color:var(--red);
+    }
+
+    /* ════════════════════════════════════════
+       SCROLL REVEAL — DIRECTIONAL
+    ════════════════════════════════════════ */
+    .rev {
+      opacity:0; transform:translateY(26px);
+      transition:opacity .85s var(--ease), transform .85s var(--ease);
+    }
+    .rev-l {
+      opacity:0; transform:translateX(-48px);
+      transition:opacity .9s var(--ease), transform .9s var(--ease);
+    }
+    .rev-r {
+      opacity:0; transform:translateX(48px);
+      transition:opacity .9s var(--ease), transform .9s var(--ease);
+    }
+    .rev.vis, .rev-l.vis, .rev-r.vis { opacity:1; transform:none; }
+    .d1{transition-delay:.1s} .d2{transition-delay:.2s}
+    .d3{transition-delay:.3s} .d4{transition-delay:.4s} .d5{transition-delay:.5s}
+
+    /* ════════════════════════════════════════
+       NAVIGATION — transparent → dark red
+    ════════════════════════════════════════ */
+    .nav {
+      position:fixed; top:0; left:0; right:0; z-index:500;
+      border-bottom:1px solid transparent;
+      transition:background-color .45s ease, border-bottom-color .45s ease;
+    }
+    .nav.scrolled {
+      background:rgba(196,18,48,0.95);
+      backdrop-filter:blur(14px) saturate(1.3);
+      border-bottom-color:rgba(255,255,255,0.12);
+    }
+    .nav-inner {
+      max-width:1320px; margin:0 auto;
+      padding:0 var(--sp-xl); height:76px;
+      display:flex; align-items:center; gap:var(--sp-xl);
+    }
+    .logo { display:flex; align-items:center; flex-shrink:0; text-decoration:none; }
+    .nav.scrolled .logo-group-text { fill:rgba(255,255,255,0.55); }
+
+    .nav-links {
+      display:flex; align-items:center;
+      gap:var(--sp-xl); margin-left:auto; list-style:none;
+    }
+    .nav-links a {
+      font-size:13px; font-weight:500;
+      color:rgba(255,255,255,0.65); letter-spacing:.02em;
+      transition:color .2s ease; position:relative;
+    }
+    .nav-links a::after {
+      content:''; position:absolute;
+      bottom:-4px; left:0; width:0; height:1.5px;
+      background:#fff;
+      transition:width .3s var(--ease);
+    }
+    .nav-links a:hover { color:#fff; }
+    .nav-links a:hover::after { width:100%; }
+
+    .btn-nav {
+      font-size:11px; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase;
+      color:var(--bg); background:#fff;
+      padding:11px 24px; flex-shrink:0;
+      transition:background-color .25s ease, transform .2s ease;
+    }
+    .nav.scrolled .btn-nav { color:var(--red); }
+    .btn-nav:hover { background:rgba(255,255,255,0.85); transform:translateY(-1px); }
+    .btn-nav:active { transform:translateY(0); }
+
+    .hamburger {
+      display:none; flex-direction:column;
+      gap:5px; width:26px; padding:4px 0; margin-left:var(--sp-md);
+    }
+    .hamburger span {
+      display:block; height:1.5px; background:#fff;
+      transition:transform .3s ease, opacity .3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
+
+    .mob-menu {
+      display:none; flex-direction:column;
+      background:rgba(196,18,48,0.97); backdrop-filter:blur(14px);
+      padding:var(--sp-xl); border-top:1px solid rgba(255,255,255,0.12);
+    }
+    .mob-menu.open { display:flex; }
+    .mob-menu a {
+      font-size:15px; font-weight:500; color:rgba(255,255,255,0.75);
+      padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.1);
+      transition:color .2s ease;
+    }
+    .mob-menu a:last-child { border-bottom:none; }
+    .mob-menu a:hover { color:#fff; }
+    .mob-menu .mob-cta { color:#fff; font-weight:700; }
+
+    /* ════════════════════════════════════════
+       HERO — CINEMATIC (Ken Burns)
+    ════════════════════════════════════════ */
+    .hero {
+      position:relative; min-height:100vh;
+      display:flex; align-items:center;
+      overflow:hidden;
+    }
+
+    .hero-bg { position:absolute; inset:0; z-index:0; }
+    .hero-bg img {
+      width:100%; height:100%;
+      object-fit:cover; object-position:center 30%;
+      /* Ken Burns effect — cinematic slow zoom */
+      animation:kenBurns 16s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    @keyframes kenBurns {
+      from { transform:scale(1.1); }
+      to   { transform:scale(1); }
+    }
+
+    /* Layered overlay — dark + red tint */
+    .hero-bg::after {
+      content:''; position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 50%, rgba(196,18,48,0.18) 0%, transparent 70%),
+        linear-gradient(110deg, rgba(11,12,16,0.93) 0%, rgba(11,12,16,0.72) 55%, rgba(11,12,16,0.3) 100%),
+        linear-gradient(0deg, rgba(11,12,16,0.7) 0%, transparent 50%);
+    }
+
+    .hero-content {
+      position:relative; z-index:1;
+      max-width:1320px; margin:0 auto;
+      padding:var(--sp-3xl) var(--sp-xl);
+      width:100%;
+    }
+
+    .hero-badge {
+      display:flex; align-items:center; gap:var(--sp-md);
+      margin-bottom:var(--sp-xl);
+      opacity:0; animation:hUp .9s var(--ease) .25s forwards;
+    }
+    .badge-pulse {
+      width:7px; height:7px; border-radius:50%;
+      background:var(--red); flex-shrink:0;
+      animation:pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { transform:scale(1); opacity:1; }
+      50% { transform:scale(1.4); opacity:.6; }
+    }
+    .badge-txt {
+      font-size:10.5px; font-weight:700;
+      letter-spacing:.17em; text-transform:uppercase;
+      color:rgba(255,255,255,0.4);
+    }
+    .badge-rule { width:50px; height:1px; background:var(--red); opacity:.5; }
+
+    .hero-title {
+      font-family:'Fraunces',serif;
+      font-size:clamp(58px,9.5vw,148px);
+      font-weight:300; line-height:.9;
+      letter-spacing:-.035em; color:var(--text);
+      max-width:800px; margin-bottom:var(--sp-xl);
+    }
+    .hero-title .ln1 { display:block; opacity:0; animation:hUp .9s var(--ease) .45s forwards; }
+    .hero-title .ln2 { display:block; font-style:italic; color:var(--red); opacity:0; animation:hUp .9s var(--ease) .62s forwards; }
+    .hero-title .ln3 { display:block; opacity:0; animation:hUp .9s var(--ease) .79s forwards; }
+
+    .hero-red-rule {
+      width:0; height:2px; background:var(--red);
+      margin-bottom:var(--sp-lg);
+      animation:growRight .7s var(--ease) .95s forwards;
+    }
+    @keyframes growRight { from{width:0} to{width:56px} }
+
+    .hero-desc {
+      font-size:16px; font-weight:300; line-height:1.82;
+      color:rgba(255,255,255,0.5);
+      max-width:460px; margin-bottom:var(--sp-xl);
+      opacity:0; animation:hUp .9s var(--ease) 1.05s forwards;
+    }
+    .hero-actions {
+      display:flex; align-items:center; gap:var(--sp-lg);
+      opacity:0; animation:hUp .9s var(--ease) 1.2s forwards;
+    }
+
+    @keyframes hUp {
+      from { opacity:0; transform:translateY(22px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    .btn-prim {
+      display:inline-flex; align-items:center; gap:10px;
+      font-size:12px; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase;
+      color:#fff; background:var(--red); padding:17px 34px;
+      transition:background-color .25s ease, transform .2s ease;
+    }
+    .btn-prim:hover { background:var(--red-d); transform:translateY(-2px); }
+    .btn-prim:active { transform:translateY(0); }
+    .btn-prim:focus-visible { outline:2px solid var(--red); outline-offset:3px; }
+
+    .btn-ghost {
+      font-size:13px; font-weight:500;
+      color:rgba(255,255,255,.7); padding-bottom:3px;
+      border-bottom:1px solid rgba(255,255,255,.25);
+      transition:color .2s ease, border-color .2s ease, letter-spacing .3s var(--spring);
+    }
+    .btn-ghost:hover { color:#fff; border-bottom-color:#fff; }
+
+    .hero-scroll {
+      position:absolute; bottom:var(--sp-xl);
+      left:var(--sp-xl); z-index:1;
+      display:flex; align-items:center; gap:var(--sp-md);
+      opacity:0; animation:fadeI 1s ease 1.6s forwards;
+    }
+    .scr-line { width:40px; height:1px; background:rgba(255,255,255,.2); }
+    .scr-txt { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.25); }
+    @keyframes fadeI { from{opacity:0} to{opacity:1} }
+
+    /* ════════════════════════════════════════
+       STATS BAR
+    ════════════════════════════════════════ */
+    .stats {
+      background:var(--bg-3);
+      border-top:3px solid var(--red);
+      border-bottom:1px solid var(--brd-d);
+    }
+    .stats-grid {
+      max-width:1320px; margin:0 auto;
+      padding:0 var(--sp-xl);
+      display:grid; grid-template-columns:repeat(4,1fr);
+    }
+    .sitem {
+      padding:var(--sp-2xl) var(--sp-xl);
+      border-right:1px solid var(--brd-d);
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .sitem:last-child { border-right:none; }
+    .sval {
+      font-family:'Fraunces',serif;
+      font-size:clamp(44px,5.5vw,68px);
+      font-weight:300; line-height:1;
+      letter-spacing:-.035em; color:var(--text);
+      display:flex; align-items:baseline; gap:3px;
+    }
+    .ssuf { font-size:.44em; color:var(--red); font-weight:400; }
+    .slbl { font-size:12px; font-weight:400; color:var(--muted); margin-top:4px; }
+
+    /* ════════════════════════════════════════
+       PROJECTS — 3D FLIP CARDS
+    ════════════════════════════════════════ */
+    .projects { padding:var(--sp-3xl) 0; background:var(--bg); }
+    .sec-hdr {
+      max-width:1320px; margin:0 auto;
+      padding:0 var(--sp-xl); margin-bottom:var(--sp-2xl);
+      display:flex; align-items:flex-end; justify-content:space-between;
+    }
+    .sec-ttl {
+      font-family:'Fraunces',serif;
+      font-size:clamp(38px,5vw,72px);
+      font-weight:300; letter-spacing:-.035em; line-height:1;
+      color:var(--text);
+    }
+    .sec-lnk {
+      font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--red); display:flex; align-items:center; gap:var(--sp-sm);
+      padding-bottom:2px; border-bottom:1px solid var(--red); flex-shrink:0;
+      transition:color .2s ease, gap .3s var(--spring);
+    }
+    .sec-lnk:hover { color:#E84060; gap:var(--sp-md); }
+
+    .proj-grid {
+      max-width:1320px; margin:0 auto;
+      padding:0 var(--sp-xl);
+      display:grid; grid-template-columns:repeat(12,1fr);
+      gap:3px;
+    }
+
+    /* Perspective container */
+    .proj { perspective:1200px; }
+    .proj:nth-child(1) { grid-column:span 8; }
+    .proj:nth-child(2) { grid-column:span 4; }
+    .proj:nth-child(3) { grid-column:span 4; }
+    .proj:nth-child(4) { grid-column:span 8; }
+    .proj:nth-child(5) { grid-column:span 12; }
+
+    .proj-inn {
+      position:relative;
+      transform-style:preserve-3d;
+      transition:transform .75s var(--spring);
+    }
+    .proj:hover .proj-inn { transform:rotateY(180deg); }
+
+    .proj:nth-child(1) .proj-inn,
+    .proj:nth-child(2) .proj-inn,
+    .proj:nth-child(3) .proj-inn,
+    .proj:nth-child(4) .proj-inn { height:440px; }
+    .proj:nth-child(5) .proj-inn { height:360px; }
+
+    .proj-f, .proj-b {
+      position:absolute; inset:0;
+      backface-visibility:hidden; overflow:hidden;
+    }
+    .proj-f { background:var(--bg-3); }
+    .proj-b {
+      background:var(--red);
+      transform:rotateY(180deg);
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      padding:var(--sp-xl); text-align:center;
+    }
+
+    .proj-f img {
+      width:100%; height:100%; object-fit:cover;
+    }
+    .proj-ovl {
+      position:absolute; inset:0;
+      background:linear-gradient(0deg, rgba(11,12,16,.9) 0%, rgba(11,12,16,.2) 45%, transparent 70%);
+    }
+    .proj-meta {
+      position:absolute; bottom:0; left:0; right:0;
+      padding:var(--sp-lg) var(--sp-xl);
+    }
+    .proj-num {
+      font-size:10.5px; font-weight:700; letter-spacing:.14em;
+      color:var(--red); display:block; margin-bottom:6px;
+    }
+    .proj-nm {
+      font-family:'Fraunces',serif;
+      font-size:clamp(17px,2.2vw,27px);
+      font-weight:400; letter-spacing:-.015em; line-height:1.1;
+      color:var(--text); margin-bottom:6px;
+    }
+    .proj-loc {
+      font-size:12px; font-weight:400; color:rgba(255,255,255,.5);
+      display:flex; align-items:center; gap:8px;
+    }
+    .proj-loc::before {
+      content:''; display:inline-block;
+      width:16px; height:1px; background:var(--red); flex-shrink:0;
+    }
+    .proj-tag {
+      position:absolute; top:var(--sp-md); right:var(--sp-md);
+      font-size:9.5px; font-weight:700; letter-spacing:.13em;
+      text-transform:uppercase; color:#fff;
+      background:rgba(11,12,16,.75); backdrop-filter:blur(8px);
+      padding:5px 12px; border:1px solid rgba(255,255,255,.1);
+    }
+
+    /* Flip back content */
+    .flip-ico { width:52px; height:52px; color:rgba(255,255,255,.45); margin-bottom:var(--sp-lg); }
+    .flip-title {
+      font-family:'Fraunces',serif;
+      font-size:22px; font-weight:400;
+      letter-spacing:-.015em; color:#fff;
+      margin-bottom:var(--sp-sm); line-height:1.2;
+    }
+    .flip-loc { font-size:13px; font-weight:400; color:rgba(255,255,255,.6); margin-bottom:var(--sp-xl); }
+    .flip-cta {
+      font-size:11px; font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; color:#fff;
+      padding:12px 24px;
+      border:1.5px solid rgba(255,255,255,.45);
+      transition:background-color .2s ease, border-color .2s ease;
+    }
+    .flip-cta:hover { background:rgba(255,255,255,.15); border-color:#fff; }
+
+    /* ════════════════════════════════════════
+       MISSION QUOTE
+    ════════════════════════════════════════ */
+    .mission {
+      padding:var(--sp-3xl) 0;
+      background:var(--bg-2); position:relative; overflow:hidden;
+    }
+    .mission::before {
+      content:'"'; position:absolute; top:-60px; left:60px;
+      font-family:'Fraunces',serif; font-size:480px; font-weight:300;
+      color:var(--red); opacity:.04; line-height:1; pointer-events:none;
+    }
+    .mission-inn {
+      max-width:1320px; margin:0 auto;
+      padding:0 var(--sp-xl);
+      display:grid; grid-template-columns:1fr 2fr;
+      gap:var(--sp-3xl); align-items:center;
+    }
+    .mission-side {
+      display:flex; flex-direction:column; gap:var(--sp-2xl);
+    }
+    .mstat {
+      padding-left:var(--sp-lg); border-left:2px solid var(--red);
+      display:flex; flex-direction:column; gap:4px;
+    }
+    .mstat-v {
+      font-family:'Fraunces',serif; font-size:34px; font-weight:300;
+      letter-spacing:-.025em; color:var(--text);
+    }
+    .mstat-l { font-size:12px; font-weight:400; color:var(--muted); }
+    .mission-q {
+      font-family:'Fraunces',serif;
+      font-size:clamp(26px,3.2vw,48px);
+      font-weight:300; line-height:1.35;
+      letter-spacing:-.02em; color:var(--text);
+    }
+    .mission-q em { font-style:italic; color:var(--red); }
+    .mission-attr {
+      font-size:13px; font-weight:400; color:var(--muted);
+      margin-top:var(--sp-xl); display:block;
+    }
+
+    /* ════════════════════════════════════════
+       SECTORS
+    ════════════════════════════════════════ */
+    .sectors { padding:var(--sp-3xl) 0; background:var(--bg); }
+    .sec-inn { max-width:1320px; margin:0 auto; padding:0 var(--sp-xl); }
+    .sec-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:1px; background:var(--brd-d);
+      border:1px solid var(--brd-d);
+      margin-top:var(--sp-2xl);
+    }
+    .sector {
+      background:var(--bg); padding:var(--sp-2xl) var(--sp-xl);
+      display:flex; flex-direction:column; gap:var(--sp-lg);
+      transition:background-color .3s ease;
+    }
+    .sector:hover { background:var(--bg-3); }
+    .sec-ico { width:40px; height:40px; color:var(--red); }
+    .sec-num { font-family:'Fraunces',serif; font-size:13px; font-weight:300; color:var(--dim); letter-spacing:.08em; }
+    .sec-nm {
+      font-family:'Fraunces',serif; font-size:22px; font-weight:400;
+      letter-spacing:-.015em; color:var(--text); line-height:1.2;
+    }
+    .sec-ds { font-size:14px; font-weight:300; line-height:1.7; color:var(--muted); margin-top:auto; }
+
+    /* ════════════════════════════════════════
+       SUSTAINABILITY
+    ════════════════════════════════════════ */
+    .sustain { padding:var(--sp-3xl) 0; background:var(--bg-2); overflow:hidden; }
+    .sustain-inn {
+      max-width:1320px; margin:0 auto; padding:0 var(--sp-xl);
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:var(--sp-3xl); align-items:center;
+    }
+    .sus-cont { display:flex; flex-direction:column; gap:var(--sp-xl); }
+    .sus-ttl {
+      font-family:'Fraunces',serif;
+      font-size:clamp(36px,4.2vw,60px);
+      font-weight:300; letter-spacing:-.035em; line-height:1.05; color:var(--text);
+    }
+    .sus-ttl em { font-style:italic; color:var(--red); }
+    .sus-ds { font-size:15.5px; font-weight:300; line-height:1.82; color:var(--muted); }
+    .sus-mets { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-xl); }
+    .smet { display:flex; flex-direction:column; gap:5px; }
+    .smet-v {
+      font-family:'Fraunces',serif; font-size:34px; font-weight:300;
+      letter-spacing:-.025em; color:var(--text);
+    }
+    .smet-v span { color:var(--red); font-size:.5em; }
+    .smet-l { font-size:12px; font-weight:400; color:var(--muted); line-height:1.5; }
+    .sus-img { position:relative; height:620px; overflow:hidden; }
+    .sus-img img {
+      width:100%; height:100%; object-fit:cover;
+      transition:transform 1.2s var(--ease);
+    }
+    .sus-img:hover img { transform:scale(1.04); }
+    .sus-img::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(to bottom, transparent 55%, rgba(11,12,16,.65) 100%);
+    }
+    .sus-badge {
+      position:absolute; bottom:var(--sp-lg); left:var(--sp-lg);
+      z-index:1; background:rgba(11,12,16,.9); backdrop-filter:blur(10px);
+      padding:var(--sp-md) var(--sp-lg); border-left:3px solid var(--red);
+    }
+    .sus-badge-t { font-size:13px; font-weight:600; color:var(--text); }
+    .sus-badge-s { font-size:11px; font-weight:400; color:var(--muted); margin-top:3px; }
+
+    /* ════════════════════════════════════════
+       CLIENTS MARQUEE
+    ════════════════════════════════════════ */
+    .clients {
+      padding:var(--sp-xl) 0;
+      background:var(--bg-3);
+      border-top:1px solid var(--brd-d);
+      border-bottom:1px solid var(--brd-d);
+      overflow:hidden;
+    }
+    .cli-lbl { text-align:center; padding-bottom:var(--sp-lg); }
+    .mqw { overflow:hidden; }
+    .mq {
+      display:flex; align-items:center; gap:var(--sp-2xl);
+      animation:mq 30s linear infinite; width:max-content;
+    }
+    .mq:hover { animation-play-state:paused; }
+    .mi {
+      font-size:11px; font-weight:700; letter-spacing:.16em;
+      text-transform:uppercase; color:var(--dim); white-space:nowrap;
+      transition:color .25s ease;
+    }
+    .mi:hover { color:var(--muted); }
+    .md { width:4px; height:4px; border-radius:50%; background:var(--red); opacity:.4; flex-shrink:0; }
+    @keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ════════════════════════════════════════
+       TESTIMONIALS
+    ════════════════════════════════════════ */
+    .testi { padding:var(--sp-3xl) 0; background:var(--bg); }
+    .testi-inn { max-width:1320px; margin:0 auto; padding:0 var(--sp-xl); }
+    .tgrid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:var(--sp-lg); margin-top:var(--sp-2xl);
+    }
+    .tcard {
+      background:var(--bg-3);
+      padding:var(--sp-xl);
+      border:1px solid var(--brd-d);
+      border-top:2px solid var(--red);
+      display:flex; flex-direction:column; gap:var(--sp-lg);
+      transition:border-color .3s ease, box-shadow .3s ease;
+    }
+    .tcard:hover {
+      border-color:var(--red);
+      box-shadow:0 8px 32px rgba(196,18,48,.12);
+    }
+    .tcard-q { font-family:'Fraunces',serif; font-size:52px; font-weight:300; color:var(--red); line-height:1; opacity:.55; }
+    .tcard-t { font-size:14.5px; font-weight:300; line-height:1.75; color:var(--muted); flex:1; }
+    .tcard-a { display:flex; flex-direction:column; gap:4px; padding-top:var(--sp-md); border-top:1px solid var(--brd-d); }
+    .tcard-n { font-size:14px; font-weight:600; color:var(--text); }
+    .tcard-r { font-size:11.5px; font-weight:400; color:var(--dim); }
+
+    /* ════════════════════════════════════════
+       FAQ
+    ════════════════════════════════════════ */
+    .faq { padding:var(--sp-3xl) 0; background:var(--bg-2); }
+    .faq-inn { max-width:920px; margin:0 auto; padding:0 var(--sp-xl); }
+    .faq-list { margin-top:var(--sp-2xl); display:flex; flex-direction:column; }
+    .faq-it { border-bottom:1px solid var(--brd-d); }
+    .faq-q {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:var(--sp-lg) 0; cursor:pointer; gap:var(--sp-xl);
+    }
+    .faq-qt {
+      font-family:'Fraunces',serif; font-size:19px; font-weight:400;
+      color:var(--text); letter-spacing:-.01em;
+    }
+    .faq-ic {
+      width:24px; height:24px; flex-shrink:0; color:var(--red);
+      transition:transform .35s var(--spring);
+    }
+    .faq-it.open .faq-ic { transform:rotate(45deg); }
+    .faq-ans { max-height:0; overflow:hidden; transition:max-height .45s var(--ease), padding-bottom .3s ease; }
+    .faq-it.open .faq-ans { max-height:300px; padding-bottom:var(--sp-lg); }
+    .faq-at { font-size:15px; font-weight:300; line-height:1.78; color:var(--muted); }
+
+    /* ════════════════════════════════════════
+       CAREERS
+    ════════════════════════════════════════ */
+    .careers { padding:var(--sp-3xl) 0; background:var(--bg); position:relative; overflow:hidden; }
+    .careers::after {
+      content:'ONEY'; position:absolute; bottom:-20px; right:-10px;
+      font-family:'Fraunces',serif; font-size:280px; font-weight:300;
+      color:var(--text); opacity:.018; letter-spacing:-.06em; pointer-events:none;
+    }
+    .car-inn {
+      max-width:1320px; margin:0 auto; padding:0 var(--sp-xl);
+      display:grid; grid-template-columns:2fr 1fr;
+      gap:var(--sp-3xl); align-items:center;
+    }
+    .car-ttl {
+      font-family:'Fraunces',serif;
+      font-size:clamp(40px,5.5vw,80px);
+      font-weight:300; letter-spacing:-.035em; line-height:.95; color:var(--text);
+    }
+    .car-ttl em { font-style:italic; color:var(--red); }
+    .car-ds { font-size:15.5px; font-weight:300; line-height:1.78; color:var(--muted); max-width:500px; margin-top:var(--sp-lg); }
+    .car-r { display:flex; flex-direction:column; gap:var(--sp-xl); }
+    .opc {
+      font-family:'Fraunces',serif; font-size:80px; font-weight:300;
+      letter-spacing:-.04em; color:var(--red); line-height:1;
+    }
+    .opc-l { font-size:13px; font-weight:400; color:var(--muted); }
+    .pos-ls { display:flex; flex-direction:column; gap:12px; }
+    .pos-i { font-size:14px; font-weight:500; color:var(--text); display:flex; align-items:center; gap:12px; }
+    .pdot { width:6px; height:6px; border-radius:50%; background:var(--red); flex-shrink:0; }
+    .pos-m { font-size:13px; font-weight:400; color:var(--muted); }
+    .pdot-m { background:var(--dim); }
+
+    /* ════════════════════════════════════════
+       CONTACT
+    ════════════════════════════════════════ */
+    .contact {
+      padding:var(--sp-3xl) 0;
+      background:var(--bg-3);
+      border-top:2px solid var(--red);
+    }
+    .contact-inn { max-width:1320px; margin:0 auto; padding:0 var(--sp-xl); }
+    .cgrid {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:var(--sp-3xl); margin-top:var(--sp-2xl);
+    }
+    .cttl {
+      font-family:'Fraunces',serif;
+      font-size:clamp(40px,4.5vw,68px);
+      font-weight:300; letter-spacing:-.035em; line-height:1.02;
+      color:var(--text); margin-bottom:var(--sp-xl);
+    }
+    .cds { font-size:15.5px; font-weight:300; line-height:1.78; color:var(--muted); margin-bottom:var(--sp-xl); }
+    .cform { display:flex; flex-direction:column; gap:var(--sp-md); }
+    .crow { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-md); }
+    .cfield { display:flex; flex-direction:column; gap:var(--sp-sm); }
+    .clbl { font-size:10.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
+    .cinp, .ctxt {
+      background:var(--surf); border:1px solid var(--brd-d);
+      color:var(--text); font-family:'Manrope',sans-serif;
+      font-size:14.5px; font-weight:300; padding:14px 16px;
+      transition:border-color .25s ease; outline:none; resize:none;
+    }
+    .cinp:focus, .ctxt:focus { border-color:var(--red); }
+    .cinp::placeholder, .ctxt::placeholder { color:var(--dim); }
+    .ctxt { min-height:140px; }
+    .btn-sbm {
+      font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--bg); background:var(--red); padding:18px 38px;
+      border:none; cursor:pointer; align-self:flex-start;
+      transition:background-color .25s ease, transform .2s ease;
+    }
+    .btn-sbm:hover { background:var(--red-d); transform:translateY(-2px); }
+    .btn-sbm:active { transform:translateY(0); }
+
+    .offices { display:flex; flex-direction:column; }
+    .off-ttl { font-size:10.5px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--red); margin-bottom:var(--sp-xl); }
+    .office { padding:var(--sp-xl) 0; border-bottom:1px solid var(--brd-d); display:flex; flex-direction:column; gap:5px; }
+    .office:last-child { border-bottom:none; }
+    .off-tp { font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--red); }
+    .off-cy { font-family:'Fraunces',serif; font-size:22px; font-weight:400; letter-spacing:-.015em; color:var(--text); }
+    .off-ad { font-size:13px; font-weight:300; color:var(--muted); line-height:1.55; }
+
+    /* ════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════ */
+    .footer { background:var(--bg); border-top:1px solid var(--brd-d); padding:var(--sp-2xl) 0 var(--sp-xl); }
+    .foot-inn { max-width:1320px; margin:0 auto; padding:0 var(--sp-xl); }
+    .foot-top {
+      display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+      gap:var(--sp-2xl); padding-bottom:var(--sp-2xl);
+      border-bottom:1px solid var(--brd-d);
+    }
+    .foot-brand p { font-size:14px; font-weight:300; color:rgba(255,255,255,.3); margin-top:var(--sp-lg); max-width:280px; line-height:1.7; }
+    .fc-ttl { font-size:10.5px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--red); margin-bottom:var(--sp-lg); }
+    .fl { display:flex; flex-direction:column; gap:var(--sp-md); list-style:none; }
+    .fl a { font-size:14px; font-weight:300; color:rgba(255,255,255,.35); transition:color .2s ease; }
+    .fl a:hover { color:var(--text); }
+    .foot-bot { display:flex; align-items:center; justify-content:space-between; padding-top:var(--sp-xl); }
+    .foot-copy { font-size:12px; font-weight:300; color:rgba(255,255,255,.2); }
+    .foot-soc { display:flex; align-items:center; gap:var(--sp-lg); }
+    .soc-a { color:rgba(255,255,255,.25); display:flex; align-items:center; transition:color .2s ease, transform .25s var(--spring); }
+    .soc-a:hover { color:var(--red); transform:translateY(-3px); }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+    @media (max-width:1024px) {
+      .nav-links, .btn-nav { display:none; }
+      .hamburger { display:flex; }
+      .stats-grid { grid-template-columns:repeat(2,1fr); }
+      .sitem { border-right:none; border-bottom:1px solid var(--brd-d); }
+      .sitem:nth-child(odd) { border-right:1px solid var(--brd-d); }
+      .sitem:nth-child(3), .sitem:nth-child(4) { border-bottom:none; }
+      .sec-grid { grid-template-columns:repeat(2,1fr); }
+      .sustain-inn { grid-template-columns:1fr; }
+      .tgrid { grid-template-columns:1fr 1fr; }
+      .foot-top { grid-template-columns:1fr 1fr; gap:var(--sp-xl); }
+    }
+    @media (max-width:768px) {
+      .nav-inner { padding:0 var(--sp-lg); }
+      .hero-content { padding:var(--sp-2xl) var(--sp-lg); }
+      .hero-title { font-size:clamp(46px,12vw,80px); }
+      .hero-actions { flex-direction:column; align-items:flex-start; }
+      .stats-grid, .proj-grid { padding:0 var(--sp-lg); }
+      .sitem { padding:var(--sp-xl) var(--sp-lg); }
+      .sec-hdr { padding:0 var(--sp-lg); flex-direction:column; align-items:flex-start; gap:var(--sp-md); }
+      .proj-grid { grid-template-columns:1fr; }
+      .proj:nth-child(n) { grid-column:span 1; }
+      .proj:nth-child(n) .proj-inn { height:280px; }
+      .sec-inn, .mission-inn, .testi-inn, .faq-inn,
+      .car-inn, .contact-inn, .foot-inn, .sustain-inn { padding:0 var(--sp-lg); }
+      .mission-inn { grid-template-columns:1fr; gap:var(--sp-xl); }
+      .sec-grid { grid-template-columns:1fr; }
+      .sus-img { height:360px; }
+      .sus-mets { grid-template-columns:1fr 1fr; }
+      .tgrid { grid-template-columns:1fr; }
+      .car-inn { grid-template-columns:1fr; }
+      .cgrid { grid-template-columns:1fr; }
+      .crow { grid-template-columns:1fr; }
+      .foot-top { grid-template-columns:1fr; }
+      .foot-bot { flex-direction:column; align-items:flex-start; gap:var(--sp-lg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ──── NAVIGATION ──── -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <svg viewBox="0 0 232 56" height="56" style="display:block;" aria-label="ONEY GROUP">
+          <svg x="0" y="2" width="52" height="52" viewBox="0 0 120 120">
+            <defs><clipPath id="nav-ic"><circle cx="60" cy="60" r="55"/></clipPath></defs>
+            <circle cx="60" cy="60" r="55" fill="#C41230"/>
+            <g clip-path="url(#nav-ic)">
+              <path d="M 4,69 L 60,28 L 116,69 L 101,69 L 60,44 L 19,69 Z" fill="white"/>
+              <path d="M -4,89 L 60,52 L 124,89 L 109,89 L 60,68 L 11,89 Z" fill="white"/>
+            </g>
+          </svg>
+          <line x1="64" y1="10" x2="64" y2="46" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+          <text x="74" y="40" font-family="'Cormorant Garamond',Georgia,serif" font-size="34" font-weight="700" fill="#EDE9E2" letter-spacing="-0.5">ONEY</text>
+          <text x="77" y="54" font-family="'Cormorant Garamond',Georgia,serif" font-size="12" font-weight="400" fill="#C41230" letter-spacing="5" class="logo-group-text">GROUP</text>
+        </svg>
+      </a>
+      <nav class="nav-links">
+        <a href="#projeler">Projeler</a>
+        <a href="#hakkimizda">Hakkımızda</a>
+        <a href="#surdurulebilirlik">Sürdürülebilirlik</a>
+        <a href="#kariyer">Kariyer</a>
+        <a href="#iletisim">İletişim</a>
+      </nav>
+      <a href="#iletisim" class="btn-nav">Teklif Al</a>
+      <button class="hamburger" id="ham" aria-label="Menü" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mob-menu" id="mob">
+      <a href="#projeler">Projeler</a>
+      <a href="#hakkimizda">Hakkımızda</a>
+      <a href="#surdurulebilirlik">Sürdürülebilirlik</a>
+      <a href="#kariyer">Kariyer</a>
+      <a href="#iletisim">İletişim</a>
+      <a href="#iletisim" class="mob-cta">Teklif Al →</a>
+    </div>
+  </header>
+
+  <!-- ──── HERO ──── -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1800&q=80"
+           alt="" role="presentation" loading="eager">
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-pulse"></span>
+        <span class="badge-txt">Kuruluş 1988 · İstanbul · 18 Ülke · 280+ Proje</span>
+        <span class="badge-rule"></span>
+      </div>
+      <h1 class="hero-title">
+        <span class="ln1">Geleceği</span>
+        <span class="ln2">Bugün</span>
+        <span class="ln3">İnşa Ediyoruz.</span>
+      </h1>
+      <div class="hero-red-rule"></div>
+      <p class="hero-desc">
+        İstanbul'dan dünyaya uzanan 36 yıllık deneyimle, insanlığın en karmaşık
+        mühendislik projelerini güç, hassasiyet ve sürdürülebilirlik ilkesiyle hayata geçiriyoruz.
+      </p>
+      <div class="hero-actions">
+        <a href="#projeler" class="btn-prim">
+          Projelerimizi Keşfedin
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#iletisim" class="btn-ghost">Bize Ulaşın &rarr;</a>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <span class="scr-line"></span>
+      <span class="scr-txt">Kaydır</span>
+    </div>
+  </section>
+
+  <!-- ──── STATS ──── -->
+  <section class="stats">
+    <div class="stats-grid">
+      <div class="sitem rev">
+        <div class="sval"><span class="sctr" data-t="280">280</span><span class="ssuf">+</span></div>
+        <span class="slbl">Tamamlanan Proje</span>
+      </div>
+      <div class="sitem rev d1">
+        <div class="sval"><span class="sctr" data-t="18">18</span></div>
+        <span class="slbl">Ülkede Faaliyet</span>
+      </div>
+      <div class="sitem rev d2">
+        <div class="sval"><span class="sctr" data-t="36">36</span></div>
+        <span class="slbl">Yıl Deneyim</span>
+      </div>
+      <div class="sitem rev d3">
+        <div class="sval"><span class="sctr" data-t="6200">6.200</span><span class="ssuf">+</span></div>
+        <span class="slbl">Uzman Çalışan</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── PROJECTS ──── -->
+  <section class="projects" id="projeler">
+    <div class="sec-hdr rev">
+      <div>
+        <p class="label" style="margin-bottom:12px;">Seçilmiş Projeler</p>
+        <h2 class="sec-ttl">Dünyayı Şekillendiren<br>Yapılar</h2>
+      </div>
+      <a href="#" class="sec-lnk">
+        Tüm Projeler
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <div class="proj-grid">
+
+      <article class="proj rev-l">
+        <div class="proj-inn">
+          <div class="proj-f">
+            <img src="https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=1200&q=80" alt="İstanbul Teknopark Tower" loading="lazy">
+            <div class="proj-ovl"></div>
+            <span class="proj-tag">Yüksek Yapı</span>
+            <div class="proj-meta">
+              <span class="proj-num">01</span>
+              <h3 class="proj-nm">İstanbul Teknopark Tower</h3>
+              <p class="proj-loc">İstanbul, Türkiye · 2024</p>
+            </div>
+          </div>
+          <div class="proj-b">
+            <svg class="flip-ico" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="14" y="4" width="24" height="44" rx="1"/><line x1="14" y1="18" x2="38" y2="18"/><line x1="14" y1="28" x2="38" y2="28"/><line x1="14" y1="38" x2="38" y2="38"/></svg>
+            <div class="flip-title">İstanbul Teknopark Tower</div>
+            <div class="flip-loc">İstanbul, Türkiye · 2024 · 285m</div>
+            <a href="#" class="flip-cta">Proje Detayları</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj rev-r d1">
+        <div class="proj-inn">
+          <div class="proj-f">
+            <img src="https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=800&q=80" alt="Riyad Medikal Kompleksi" loading="lazy">
+            <div class="proj-ovl"></div>
+            <span class="proj-tag">Sağlık</span>
+            <div class="proj-meta">
+              <span class="proj-num">02</span>
+              <h3 class="proj-nm">Riyad Medikal Kompleksi</h3>
+              <p class="proj-loc">Riyad, Suudi Arabistan · 2023</p>
+            </div>
+          </div>
+          <div class="proj-b">
+            <svg class="flip-ico" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="10" width="36" height="34" rx="2"/><path d="M26 10 L26 44"/><path d="M8 27 L44 27"/><path d="M18 2 L18 10"/><path d="M34 2 L34 10"/></svg>
+            <div class="flip-title">Riyad Medikal Kompleksi</div>
+            <div class="flip-loc">Riyad, Suudi Arabistan · 2023 · 1.200 yatak</div>
+            <a href="#" class="flip-cta">Proje Detayları</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj rev-l">
+        <div class="proj-inn">
+          <div class="proj-f">
+            <img src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=800&q=80" alt="Bakü Çevre Yolu Köprüsü" loading="lazy">
+            <div class="proj-ovl"></div>
+            <span class="proj-tag">Altyapı</span>
+            <div class="proj-meta">
+              <span class="proj-num">03</span>
+              <h3 class="proj-nm">Bakü Çevre Yolu Köprüsü</h3>
+              <p class="proj-loc">Bakü, Azerbaycan · 2022</p>
+            </div>
+          </div>
+          <div class="proj-b">
+            <svg class="flip-ico" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 38 C12 24 20 28 26 24 C32 20 40 24 48 38"/><line x1="4" y1="38" x2="48" y2="38"/><line x1="16" y1="28" x2="16" y2="44"/><line x1="36" y1="26" x2="36" y2="44"/></svg>
+            <div class="flip-title">Bakü Çevre Yolu Köprüsü</div>
+            <div class="flip-loc">Bakü, Azerbaycan · 2022 · 1.4km</div>
+            <a href="#" class="flip-cta">Proje Detayları</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj rev-r d1">
+        <div class="proj-inn">
+          <div class="proj-f">
+            <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1200&q=80" alt="Haydar Aliyev Hava Terminali" loading="lazy">
+            <div class="proj-ovl"></div>
+            <span class="proj-tag">Havalimanı</span>
+            <div class="proj-meta">
+              <span class="proj-num">04</span>
+              <h3 class="proj-nm">Haydar Aliyev Hava Terminali</h3>
+              <p class="proj-loc">Bakü, Azerbaycan · 2021</p>
+            </div>
+          </div>
+          <div class="proj-b">
+            <svg class="flip-ico" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 42 L10 26 L42 26 L48 42"/><path d="M10 26 C10 18 16 12 26 12 C36 12 42 18 42 26"/><line x1="4" y1="42" x2="48" y2="42"/></svg>
+            <div class="flip-title">Haydar Aliyev Hava Terminali</div>
+            <div class="flip-loc">Bakü, Azerbaycan · 2021 · 8M yolcu/yıl</div>
+            <a href="#" class="flip-cta">Proje Detayları</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj rev">
+        <div class="proj-inn">
+          <div class="proj-f">
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=80" alt="Tiflis Heritage District" loading="lazy">
+            <div class="proj-ovl"></div>
+            <span class="proj-tag">Karma Kullanım</span>
+            <div class="proj-meta">
+              <span class="proj-num">05</span>
+              <h3 class="proj-nm">Tiflis Heritage District</h3>
+              <p class="proj-loc">Tiflis, Gürcistan · 2023</p>
+            </div>
+          </div>
+          <div class="proj-b">
+            <svg class="flip-ico" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="20" height="20" rx="1"/><rect x="28" y="4" width="20" height="20" rx="1"/><rect x="4" y="28" width="20" height="20" rx="1"/><rect x="28" y="28" width="20" height="20" rx="1"/></svg>
+            <div class="flip-title">Tiflis Heritage District</div>
+            <div class="flip-loc">Tiflis, Gürcistan · 2023 · 4.2 ha</div>
+            <a href="#" class="flip-cta">Proje Detayları</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ──── MISSION ──── -->
+  <section class="mission" id="hakkimizda">
+    <div class="mission-inn">
+      <div class="mission-side rev-l">
+        <p class="label">Hakkımızda</p>
+        <div style="display:flex;flex-direction:column;gap:var(--sp-xl);">
+          <div class="mstat">
+            <span class="mstat-v">1988</span>
+            <span class="mstat-l">İstanbul'da kuruldu</span>
+          </div>
+          <div class="mstat">
+            <span class="mstat-v">%96</span>
+            <span class="mstat-l">Zamanında teslim oranı</span>
+          </div>
+          <div class="mstat">
+            <span class="mstat-v">ISO</span>
+            <span class="mstat-l">9001 · 14001 · 45001 Sertifikalı</span>
+          </div>
+        </div>
+      </div>
+      <div class="rev-r d2">
+        <blockquote class="mission-q">
+          "Her yapı, bir neslin mirasıdır. Biz sadece bina yapmıyoruz —
+          <em>toplulukların geleceğini, ulusların omurgasını ve insan
+          medeniyetinin kalıcı izlerini inşa ediyoruz.</em>"
+        </blockquote>
+        <span class="mission-attr">— Osman Oney, Kurucu & Yönetim Kurulu Başkanı</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── SECTORS ──── -->
+  <section class="sectors" id="sektorler">
+    <div class="sec-inn">
+      <div class="sec-hdr rev" style="padding:0;margin-bottom:0;">
+        <div>
+          <p class="label" style="margin-bottom:12px;">Uzmanlık Alanlarımız</p>
+          <h2 class="sec-ttl">Hangi Sektörde<br>Çalışıyoruz?</h2>
+        </div>
+      </div>
+      <div class="sec-grid">
+        <div class="sector rev-l">
+          <span class="sec-num">01</span>
+          <svg class="sec-ico" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="13" y="4" width="18" height="36" rx="1"/><rect x="7" y="16" width="6" height="24" rx="1"/><rect x="31" y="16" width="6" height="24" rx="1"/><line x1="13" y1="12" x2="31" y2="12"/><line x1="13" y1="20" x2="31" y2="20"/><line x1="13" y1="28" x2="31" y2="28"/></svg>
+          <h3 class="sec-nm">Yüksek Yapılar</h3>
+          <p class="sec-ds">200 metreyi aşan gökdelenler ve karma kullanımlı dev yapılar. Yapısal mühendislik ile mimarinin kesişimi.</p>
+        </div>
+        <div class="sector rev-r d1">
+          <span class="sec-num">02</span>
+          <svg class="sec-ico" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 32 C10 22 16 26 22 22 C28 18 34 22 40 32"/><line x1="4" y1="32" x2="40" y2="32"/><line x1="15" y1="26" x2="15" y2="38"/><line x1="29" y1="26" x2="29" y2="38"/></svg>
+          <h3 class="sec-nm">Köprüler & Altyapı</h3>
+          <p class="sec-ds">Derin su köprüleri, tüneller ve kentsel ulaşım altyapısı. Toplulukları birbirine bağlayan mühendislik harikaları.</p>
+        </div>
+        <div class="sector rev-l d2">
+          <span class="sec-num">03</span>
+          <svg class="sec-ico" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="10" width="28" height="28" rx="2"/><path d="M22 10 L22 38"/><path d="M8 24 L36 24"/><path d="M16 3 L16 10"/><path d="M28 3 L28 10"/><circle cx="22" cy="24" r="4"/></svg>
+          <h3 class="sec-nm">Sağlık Tesisleri</h3>
+          <p class="sec-ds">Uluslararası standartlarda hastaneler ve medikal kampüsler. Teknoloji entegrasyonu ile hasta merkezli tasarım.</p>
+        </div>
+        <div class="sector rev-r d3">
+          <span class="sec-num">04</span>
+          <svg class="sec-ico" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 34 L8 20 L36 20 L42 34"/><path d="M8 20 C8 13 14 9 22 9 C30 9 36 13 36 20"/><line x1="2" y1="34" x2="42" y2="34"/><line x1="13" y1="27" x2="13" y2="34"/><line x1="22" y1="25" x2="22" y2="34"/><line x1="31" y1="27" x2="31" y2="34"/></svg>
+          <h3 class="sec-nm">Havalimanları</h3>
+          <p class="sec-ds">Terminal binaları, pist inşaatı ve lojistik merkezleri. Milyonlarca yolcuya hizmet eden mega altyapı.</p>
+        </div>
+        <div class="sector rev-l d4">
+          <span class="sec-num">05</span>
+          <svg class="sec-ico" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="1"/><rect x="24" y="4" width="16" height="16" rx="1"/><rect x="4" y="24" width="16" height="16" rx="1"/><rect x="24" y="24" width="16" height="16" rx="1"/></svg>
+          <h3 class="sec-nm">Karma Kullanımlı</h3>
+          <p class="sec-ds">Konut, ticaret ve ofis fonksiyonlarını bütünleştiren entegre kentsel gelişim projeleri.</p>
+        </div>
+        <div class="sector rev-r d5">
+          <span class="sec-num">06</span>
+          <svg class="sec-ico" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="20" width="36" height="18" rx="1"/><rect x="10" y="12" width="24" height="8"/><line x1="14" y1="24" x2="14" y2="34"/><line x1="22" y1="24" x2="22" y2="34"/><line x1="30" y1="24" x2="30" y2="34"/><path d="M4 20 L8 12 L36 12 L40 20"/></svg>
+          <h3 class="sec-nm">Endüstriyel Tesisler</h3>
+          <p class="sec-ds">Fabrika binaları, enerji üretim tesisleri ve lojistik merkezleri. Özel mühendislik gerektiren yapılar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── SUSTAINABILITY ──── -->
+  <section class="sustain" id="surdurulebilirlik">
+    <div class="sustain-inn">
+      <div class="sus-cont rev-l">
+        <div>
+          <p class="label" style="margin-bottom:12px;">Sürdürülebilirlik</p>
+          <h2 class="sus-ttl">Gelecek Nesillere<br><em>Sorumlu Bir Dünya</em></h2>
+        </div>
+        <p class="sus-ds">
+          İklim değişikliğiyle mücadeleyi iş modelimizin merkezine aldık. 2032 yılına kadar
+          net sıfır karbon hedefimize ulaşmak için yeşil malzeme kullanımından yenilenebilir
+          enerji entegrasyonuna kadar her projede sürdürülebilirliği önceliklendiriyoruz.
+        </p>
+        <div class="sus-mets">
+          <div class="smet"><span class="smet-v">%38<span>↓</span></span><span class="smet-l">2019'a kıyasla karbon azaltımı</span></div>
+          <div class="smet"><span class="smet-v">34</span><span class="smet-l">LEED sertifikalı proje</span></div>
+          <div class="smet"><span class="smet-v">2032</span><span class="smet-l">Net sıfır hedef yılı</span></div>
+          <div class="smet"><span class="smet-v">1.8M<span>ton</span></span><span class="smet-l">Kümülatif CO₂ tasarrufu</span></div>
+        </div>
+        <a href="#iletisim" class="btn-prim" style="align-self:flex-start;">Sürdürülebilirlik Raporu</a>
+      </div>
+      <div class="sus-img rev-r">
+        <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=1000&q=80" alt="Yeşil sürdürülebilir mimari" loading="lazy">
+        <div class="sus-badge">
+          <div class="sus-badge-t">LEED Platinum Partner</div>
+          <div class="sus-badge-s">U.S. Green Building Council Üyesi</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── CLIENTS ──── -->
+  <section class="clients">
+    <div class="cli-lbl"><span class="label">Güven Duyulan Kurumlar & Ortaklar</span></div>
+    <div class="mqw">
+      <div class="mq" aria-hidden="true">
+        <span class="mi">T.C. ÇEVRE BAKANLIĞI</span><span class="md"></span>
+        <span class="mi">DUBAI MUNICIPALITY</span><span class="md"></span>
+        <span class="mi">AZERBAYCAN DEVLET FONU</span><span class="md"></span>
+        <span class="mi">AL RAJHI DEVELOPMENT</span><span class="md"></span>
+        <span class="mi">FRANKFURT STADT</span><span class="md"></span>
+        <span class="mi">GULF INFRASTRUCTURE</span><span class="md"></span>
+        <span class="mi">ASTANA CAPITAL GROUP</span><span class="md"></span>
+        <span class="mi">GEORGIAN ALTYAPI FONU</span><span class="md"></span>
+        <span class="mi">T.C. ÇEVRE BAKANLIĞI</span><span class="md"></span>
+        <span class="mi">DUBAI MUNICIPALITY</span><span class="md"></span>
+        <span class="mi">AZERBAYCAN DEVLET FONU</span><span class="md"></span>
+        <span class="mi">AL RAJHI DEVELOPMENT</span><span class="md"></span>
+        <span class="mi">FRANKFURT STADT</span><span class="md"></span>
+        <span class="mi">GULF INFRASTRUCTURE</span><span class="md"></span>
+        <span class="mi">ASTANA CAPITAL GROUP</span><span class="md"></span>
+        <span class="mi">GEORGIAN ALTYAPI FONU</span><span class="md"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── TESTIMONIALS ──── -->
+  <section class="testi">
+    <div class="testi-inn">
+      <div class="sec-hdr rev" style="padding:0;margin-bottom:0;">
+        <div>
+          <p class="label" style="margin-bottom:12px;">Referanslar</p>
+          <h2 class="sec-ttl">Müşterilerimiz<br>Ne Diyor?</h2>
+        </div>
+      </div>
+      <div class="tgrid">
+        <article class="tcard rev-l">
+          <div class="tcard-q">"</div>
+          <p class="tcard-t">ONEY GROUP'un İstanbul Teknopark Tower projesindeki performansı, hem teknik yetkinlik hem de proje yönetimi açısından sektörde bir kıyas noktası oluşturdu. Zaman ve bütçe taahhütlerine tam uyum sağlandı.</p>
+          <footer class="tcard-a">
+            <span class="tcard-n">Arif Kaplan</span>
+            <span class="tcard-r">Proje Direktörü, T.C. Çevre Bakanlığı</span>
+          </footer>
+        </article>
+        <article class="tcard rev d1">
+          <div class="tcard-q">"</div>
+          <p class="tcard-t">Riyad Medikal Kompleksi'nde ONEY'nin sağlık yapılarına özel uzmanlığı ve uluslararası standartlara hakimiyeti projeyi zamanında ve mükemmel kalitede teslim etmelerini sağladı.</p>
+          <footer class="tcard-a">
+            <span class="tcard-n">Mohammed Al-Qasim</span>
+            <span class="tcard-r">CEO, Al Rajhi Development, Riyad</span>
+          </footer>
+        </article>
+        <article class="tcard rev-r d2">
+          <div class="tcard-q">"</div>
+          <p class="tcard-t">Bakü Çevre Yolu Köprüsü projesinde ONEY GROUP'un mühendislik çözümleri ve saha yönetimi kapasitesi beklentilerimizin çok ötesinde bir sonuç ortaya koydu.</p>
+          <footer class="tcard-a">
+            <span class="tcard-n">Elnur Hasanov</span>
+            <span class="tcard-r">İnfrastruktura Direktörü, Bakü Belediyesi</span>
+          </footer>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── FAQ ──── -->
+  <section class="faq" id="sss">
+    <div class="faq-inn">
+      <p class="label rev">Sıkça Sorulan Sorular</p>
+      <h2 class="sec-ttl rev" style="margin-top:12px;margin-bottom:0;">Aklınızdaki<br>Sorular</h2>
+      <div class="faq-list" style="margin-top:48px;">
+        <div class="faq-it">
+          <div class="faq-q"><span class="faq-qt">Hangi ülkelerde proje geliştiriyorsunuz?</span><svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <div class="faq-ans"><p class="faq-at">Türkiye, Körfez ülkeleri (BAE, Katar, Suudi Arabistan), Orta Asya (Kazakistan, Azerbaycan, Gürcistan), Avrupa (Almanya) ve çevre ülkelerde aktif operasyonlarımız bulunmaktadır.</p></div>
+        </div>
+        <div class="faq-it">
+          <div class="faq-q"><span class="faq-qt">Minimum proje büyüklüğü nedir?</span><svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <div class="faq-ans"><p class="faq-at">Genellikle 50 milyon USD ve üzeri projeler için teklif kabul ediyoruz. Kamu altyapı projeleri için bu eşik farklılık gösterebilir. Teklif formunu doldurarak başlayabilirsiniz.</p></div>
+        </div>
+        <div class="faq-it">
+          <div class="faq-q"><span class="faq-qt">Sürdürülebilirlik sertifikasyonu süreciniz nasıl işler?</span><svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <div class="faq-ans"><p class="faq-at">Tasarım aşamasından itibaren LEED, BREEAM veya yerel yeşil bina standartlarına uyum için uzman ekibimiz sürece dahil olur. Hedef başlangıçta müşteriyle belirlenir.</p></div>
+        </div>
+        <div class="faq-it">
+          <div class="faq-q"><span class="faq-qt">Yerel iş ortaklığı politikanız nedir?</span><svg class="faq-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <div class="faq-ans"><p class="faq-at">Bulunduğumuz her pazarda yerel inşaat firmaları ile joint-venture veya alt yüklenici modelleriyle çalışıyoruz. Bu hem kaliteyi hem de yerel ekonomiye katkıyı güvence altına alır.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── CAREERS ──── -->
+  <section class="careers" id="kariyer">
+    <div class="car-inn">
+      <div class="rev-l">
+        <p class="label" style="margin-bottom:16px;">Kariyer</p>
+        <h2 class="car-ttl">Geleceği Birlikte<br><em>İnşa Edelim</em></h2>
+        <p class="car-ds">18 ülkede 6.200'den fazla uzmanla büyüyen ekibimize katılın. Mühendislik, proje yönetimi ve teknoloji alanlarında global kariyer fırsatları.</p>
+        <a href="#" class="btn-prim" style="margin-top:32px;display:inline-flex;gap:10px;">
+          Açık Pozisyonları Gör
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="car-r rev-r">
+        <div>
+          <div class="opc">24</div>
+          <div class="opc-l">Açık pozisyon</div>
+        </div>
+        <div class="pos-ls">
+          <div class="pos-i"><span class="pdot"></span>Kıdemli Yapı Mühendisi — İstanbul</div>
+          <div class="pos-i"><span class="pdot"></span>Proje Direktörü — Dubai</div>
+          <div class="pos-i"><span class="pdot"></span>Sürdürülebilirlik Uzmanı — İstanbul</div>
+          <div class="pos-i pos-m"><span class="pdot pdot-m"></span>+21 pozisyon daha...</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── CONTACT ──── -->
+  <section class="contact" id="iletisim">
+    <div class="contact-inn">
+      <p class="label rev">İletişim</p>
+      <div class="cgrid">
+        <div class="rev-l">
+          <h2 class="cttl">Projenizi<br>Konuşalım.</h2>
+          <p class="cds">Büyük ölçekli projeler için teklif, işbirliği fırsatları veya sorularınız için ekibimizle iletişime geçin.</p>
+          <form class="cform" onsubmit="return false;" novalidate>
+            <div class="crow">
+              <div class="cfield"><label class="clbl" for="cfn">Ad Soyad</label><input type="text" id="cfn" class="cinp" placeholder="Ahmet Kaya" autocomplete="name"></div>
+              <div class="cfield"><label class="clbl" for="cco">Şirket</label><input type="text" id="cco" class="cinp" placeholder="Şirket Adı"></div>
+            </div>
+            <div class="crow">
+              <div class="cfield"><label class="clbl" for="cem">E-posta</label><input type="email" id="cem" class="cinp" placeholder="ornek@sirket.com" autocomplete="email"></div>
+              <div class="cfield"><label class="clbl" for="cpt">Proje Türü</label><input type="text" id="cpt" class="cinp" placeholder="Gökdelen, Köprü..."></div>
+            </div>
+            <div class="cfield"><label class="clbl" for="cmsg">Mesaj</label><textarea id="cmsg" class="ctxt" placeholder="Projeniz hakkında kısaca bilgi verin..."></textarea></div>
+            <button type="submit" class="btn-sbm">Teklif Talebi Gönder</button>
+          </form>
+        </div>
+        <div class="rev-r d2">
+          <div class="offices">
+            <div class="off-ttl">Ofislerimiz</div>
+            <address class="office" style="font-style:normal;"><span class="off-tp">Genel Merkez</span><span class="off-cy">İstanbul</span><span class="off-ad">Maslak Mah. Büyükdere Cad. No:237<br>34398 Sarıyer, İstanbul<br>+90 212 440 00 00</span></address>
+            <address class="office" style="font-style:normal;"><span class="off-tp">Bölge Ofisi</span><span class="off-cy">Dubai</span><span class="off-ad">DIFC Gate Village, Building 2<br>Dubai, BAE · +971 4 440 0000</span></address>
+            <address class="office" style="font-style:normal;"><span class="off-tp">Bölge Ofisi</span><span class="off-cy">Bakü</span><span class="off-ad">İstiqlaliyyat küç. 12<br>AZ1001 Bakü, Azerbaycan</span></address>
+            <address class="office" style="font-style:normal;"><span class="off-tp">Bölge Ofisi</span><span class="off-cy">Frankfurt</span><span class="off-ad">Mainzer Landstr. 47<br>60329 Frankfurt, Almanya</span></address>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── FOOTER ──── -->
+  <footer class="footer">
+    <div class="foot-inn">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <svg viewBox="0 0 232 56" height="52" style="display:block;" aria-label="ONEY GROUP">
+            <svg x="0" y="2" width="52" height="52" viewBox="0 0 120 120">
+              <defs><clipPath id="foot-ic"><circle cx="60" cy="60" r="55"/></clipPath></defs>
+              <circle cx="60" cy="60" r="55" fill="#C41230"/>
+              <g clip-path="url(#foot-ic)">
+                <path d="M 4,69 L 60,28 L 116,69 L 101,69 L 60,44 L 19,69 Z" fill="white"/>
+                <path d="M -4,89 L 60,52 L 124,89 L 109,89 L 60,68 L 11,89 Z" fill="white"/>
+              </g>
+            </svg>
+            <line x1="64" y1="10" x2="64" y2="46" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+            <text x="74" y="40" font-family="'Cormorant Garamond',Georgia,serif" font-size="34" font-weight="700" fill="#EDE9E2" letter-spacing="-0.5">ONEY</text>
+            <text x="77" y="54" font-family="'Cormorant Garamond',Georgia,serif" font-size="12" font-weight="400" fill="#C41230" letter-spacing="5">GROUP</text>
+          </svg>
+          <p>1988'den bu yana küresel ölçekte güçlü, hassas ve kalıcı yapılar inşa ediyoruz.</p>
+        </div>
+        <div><div class="fc-ttl">Şirket</div><ul class="fl"><li><a href="#hakkimizda">Hakkımızda</a></li><li><a href="#sektorler">Sektörler</a></li><li><a href="#projeler">Projeler</a></li><li><a href="#surdurulebilirlik">Sürdürülebilirlik</a></li></ul></div>
+        <div><div class="fc-ttl">Hizmetler</div><ul class="fl"><li><a href="#">Proje Yönetimi</a></li><li><a href="#">Mühendislik</a></li><li><a href="#">Tasarım-Yapım</a></li><li><a href="#">BIM Teknoloji</a></li></ul></div>
+        <div><div class="fc-ttl">İletişim</div><ul class="fl"><li><a href="mailto:info@oneygroup.com">info@oneygroup.com</a></li><li><a href="tel:+902124400000">+90 212 440 00 00</a></li><li><a href="#">Yatırımcı İlişkileri</a></li><li><a href="#kariyer">Kariyer</a></li></ul></div>
+      </div>
+      <div class="foot-bot">
+        <span class="foot-copy">© 2024 ONEY GROUP İnşaat A.Ş. Tüm hakları saklıdır.</span>
+        <div class="foot-soc">
+          <a href="#" class="soc-a" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" class="soc-a" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg></a>
+          <a href="#" class="soc-a" aria-label="X"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l16 16M4 20L20 4"/></svg></a>
+          <a href="#" class="soc-a" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Nav: transparent → dark red on scroll ───────────
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // ── Mobile menu ───────────────────────────────────────
+    const ham = document.getElementById('ham');
+    const mob = document.getElementById('mob');
+    ham.addEventListener('click', () => {
+      const o = ham.classList.toggle('open');
+      mob.classList.toggle('open', o);
+      ham.setAttribute('aria-expanded', o);
+    });
+    mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      ham.classList.remove('open'); mob.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+    }));
+
+    // ── Scroll reveal (directional) ───────────────────────
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.07, rootMargin: '0px 0px -36px 0px' });
+    document.querySelectorAll('.rev, .rev-l, .rev-r').forEach(el => io.observe(el));
+
+    // ── Animated counters ─────────────────────────────────
+    function count(el, target, dur = 1600) {
+      const t0 = performance.now();
+      const large = target >= 1000;
+      (function tick(now) {
+        const p = Math.min((now - t0) / dur, 1);
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = large
+          ? Math.round(e * target).toLocaleString('tr-TR')
+          : Math.round(e * target).toString();
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    }
+    const cio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { count(e.target, +e.target.dataset.t); cio.unobserve(e.target); }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.sctr').forEach(el => cio.observe(el));
+
+    // ── FAQ accordion ─────────────────────────────────────
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const it = q.parentElement;
+        const was = it.classList.contains('open');
+        document.querySelectorAll('.faq-it.open').forEach(i => i.classList.remove('open'));
+        if (!was) it.classList.add('open');
+      });
+    });
+
+    // ── Smooth scroll ─────────────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        const t = document.querySelector(href);
+        if (t) {
+          e.preventDefault();
+          window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 80, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
